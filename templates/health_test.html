@@ -1,0 +1,29 @@
+{% extends "layout.html" %} {% block main %}
+<h1 class="cascading stroke-text">
+  <span class="text-container">Provide us with data about yourself below:</span>
+</h1>
+
+<form class="text-container stroke-text" action="/health_test" method="post">
+  <input type="text" placeholder="Your name" name="name" />
+  <input type="number" name="age" placeholder="Your age" min="1" />
+  <input
+    type="number"
+    name="weight"
+    placeholder="Your weight (in kgs)"
+    min="1"
+    step="0.1"
+  />
+  <input type="number" name="height" placeholder="Your height (in cm)" />
+  <input
+    type="number"
+    name="blood_pressure_systolic"
+    placeholder="Systolic blood pressure"
+  />
+  <input
+    type="number"
+    name="blood_pressure_diastolic"
+    placeholder="Diastolic blood pressure"
+  />
+  <button type="submit">Get results</button>
+</form>
+{% endblock %}

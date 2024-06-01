@@ -1,0 +1,77 @@
+.cascading {
+    overflow-wrap: normal;
+    white-space: wrap;
+  }
+
+.cascading span {
+    display:flow-root;
+    animation: cascading 2s ease forwards;
+    opacity: 0;
+  }
+.cascading h1 {
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    border: 2px solid pink;
+  }
+
+  .cascading p {
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    border: 2px solid pink;
+  }  
+  
+@keyframes cascading {
+    0% {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+body {
+  background-image: url("/static/images/training-girl.jpeg");
+  background-size: cover;
+}
+
+.stroke-text
+{
+    padding-top: 1vh;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+  font-family: Arial, sans-serif;
+  color: black;
+}
+
+.text-container {
+  background-color: rgba(141, 145, 141, 0.5);
+  padding: 1vw;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+.summary {
+  color: black
+}
+.form-padding {
+  padding-top: 2vh;
+}
+
+.input-hint {
+  padding-top: 2vh;
+  color: grey;
+  font-size: medium;
+  font-stretch: condensed;
+}
+
+@media (max-width: 768px) {
+  body {
+    background-size: cover;
+  }
+}

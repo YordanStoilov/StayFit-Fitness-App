@@ -1,0 +1,35 @@
+{% extends "layout.html" %} {% block main %}
+<table
+  class="table table-dark table-hover table-bordered"
+  style="margin-top: 5vh"
+>
+  <tr>
+    <th>Exercise</th>
+    <th>Equipment needed</th>
+    <th>Instructions</th>
+    <th>Save to Favourites</th>
+  </tr>
+  {% for result in results %}
+  <tr>
+    <td>{{ result.name }}</td>
+    <td>{{ result.equipment }}</td>
+    <td>
+      <details>
+        <summary>See more...</summary>
+        <p style="padding-top: 1vh">{{ result.instructions }}</p>
+      </details>
+    </td>
+    <th>
+      <form
+        action="/add_favourite"
+        method="post"
+        name="favourite"
+        data-id="{{ result.exercise_id }}"
+      >
+        <button type="submit" id="favourite-button">❤️</button>
+      </form>
+    </th>
+    {% endfor %}
+  </tr>
+</table>
+{% endblock %}

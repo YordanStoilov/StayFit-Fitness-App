@@ -1,0 +1,37 @@
+{% extends "layout.html" %} {% block main %} {% if user_data %}
+
+<h1 class="cascading stroke-text">
+  <span class="text-container">Hello, {{ name }} !</span>
+</h1>
+
+<h3 class="cascading stroke-text">
+  <span class="text-container">
+    Your Body Mass Index (BMI) is {{ user_data.bmi }}.
+    <br />
+    Your blood pressure status is : {{ user_data.bps }}
+    <br />
+    Your max heartrate is : {{ user_data.max_heartrate }}
+    <br />
+    Your goal pulse is {{ user_data.gp_lower }} to {{ user_data.gp_upper }} BPM
+    <br />
+  </span>
+</h3>
+
+{% else %}
+
+<h1 class="cascading stroke-text">
+  <span class="text-container"
+    >You haven't provided data about yourself yet! head over to Health test to
+    get your health results.</span
+  >
+</h1>
+{% endif %} {% if favourites %}
+<h3 class="cascading stroke-text">
+  <span class="text-container">Here are your favourites: </span>
+</h3>
+
+{% else %}
+<h3 class="cascading stroke-text">
+  <span class="text-container">You don't have any favourites yet</span>
+</h3>
+{% endif %} {% endblock %}

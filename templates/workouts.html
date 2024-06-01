@@ -1,0 +1,127 @@
+{% extends "layout.html" %} {% block main %}
+<h2 class="stroke-text cascading" style="padding-top: 2vh">
+  <span class="text-container"
+    >Select from the options below to get your exercises:</span
+  >
+</h2>
+<div class="text-container">
+  <form action="/workouts" method="post">
+    <details style="padding-top: 5vh">
+      <summary>Type of Exercise</summary>
+
+      <fieldset>
+        <input type="radio" name="exercise" value="Cardio" id="cardio" />
+        <label for="cardio">Cardio</label>
+        <input type="radio" name="exercise" id="olympic_weightlifting" />
+        <label for="olympic_weightlifting">Olympic Weightlifting</label>
+        <input
+          type="radio"
+          name="exercise"
+          value="olympic_weightliftingics"
+          id="plyometrics"
+        />
+        <label for="plyometrics">Plyometrics</label>
+        <input
+          type="radio"
+          name="exercise"
+          value="Powerlifting"
+          id="powerlifting"
+        />
+        <label for="powerlifting">Powerlifting</label>
+        <input type="radio" name="exercise" value="Strength" id="strength" />
+        <label for="strength">Strength</label>
+        <input
+          type="radio"
+          name="exercise"
+          value="Stretching"
+          id="stretching"
+        />
+        <label for="stretching">Stretching</label>
+        <input type="radio" name="exercise" value="Strongman" id="strongman" />
+        <label for="strongman">Strongman</label>
+      </fieldset>
+    </details>
+    <details>
+      <summary style="padding-top: 3vh">Muscle Group</summary>
+      <fieldset>
+        <input type="radio" name="muscle" value="abdominals" id="abdominals" />
+        <label for="abdominals">Abdominals</label>
+
+        <input type="radio" name="muscle" value="abductors" id="abductors" />
+        <label for="abductors">Abductors</label>
+
+        <input type="radio" name="muscle" value="adductors" id="adductors" />
+        <label for="adductors">Adductors</label>
+
+        <input type="radio" name="muscle" value="biceps" id="biceps" />
+        <label for="biceps">Biceps</label>
+
+        <input type="radio" name="muscle" value="calves" id="calves" />
+        <label for="calves">Calves</label>
+
+        <input type="radio" name="muscle" value="chest" id="chest" />
+        <label for="chest">Chest</label>
+
+        <input type="radio" name="muscle" value="forearms" id="forearms" />
+        <label for="forearms">Forearms</label>
+
+        <input type="radio" name="muscle" value="glutes" id="glutes" />
+        <label for="glutes">Glutes</label>
+
+        <input type="radio" name="muscle" value="hamstrings" id="hamstrings" />
+        <label for="hamstrings">Hamstrings</label>
+
+        <input type="radio" name="muscle" value="lats" id="lats" />
+        <label for="lats">Lats</label>
+
+        <input type="radio" name="muscle" value="lower_back" id="lower_back" />
+        <label for="lower_back">Lower Back</label>
+
+        <input
+          type="radio"
+          name="muscle"
+          value="middle_back"
+          id="middle_back"
+        />
+        <label for="middle_back">Middle Back</label>
+
+        <input type="radio" name="muscle" value="neck" id="neck" />
+        <label for="neck">Neck</label>
+
+        <input type="radio" name="muscle" value="quadriceps" id="quadriceps" />
+        <label for="quadriceps">Quadriceps</label>
+
+        <input type="radio" name="muscle" value="traps" id="traps" />
+        <label for="traps">Traps</label>
+
+        <input type="radio" name="muscle" value="triceps" id="triceps" />
+        <label for="triceps">Triceps</label>
+      </fieldset>
+    </details>
+    <details>
+      <summary style="padding-top: 3vh">Difficulty</summary>
+      <fieldset>
+        <input type="radio" name="difficulty" value="Beginner" id="beginner" />
+        <label for="beginner">Beginner</label>
+
+        <input
+          type="radio"
+          name="difficulty"
+          value="Intermediate"
+          id="intermediate"
+        />
+        <label for="intermediate">Intermediate</label>
+
+        <input type="radio" name="difficulty" value="Expert" id="expert" />
+        <label for="expert">Expert</label>
+      </fieldset>
+    </details>
+    <p style="padding-top: 5vh">Number of exercises:</p>
+    <fieldset style="padding-top: 2vh">
+      <input name="results_number" type="number" min="1" max="20" />
+      <button type="submit">Go!</button>
+    </fieldset>
+  </form>
+</div>
+
+{% endblock %}

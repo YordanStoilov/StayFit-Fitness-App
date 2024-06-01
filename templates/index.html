@@ -1,0 +1,21 @@
+{% extends "layout.html" %} {% block main %} {% if session["user_id"] %}
+<h1 class="cascading stroke-text">
+  <span class="text-container container">Welcome to StayFit!</span>
+</h1>
+<p class="cascading stroke-text" style="text-align: center; font-size: x-large">
+  <span class="text-container"
+    >Stay on top of your health and fitness with our comprehensive tools and
+    resources. Check on your health status by inputting data about your blood
+    pressure, heart rate, and activity level. Explore a selection of workout
+    regimens and diets tailored to your needs. Enjoy musical selections designed
+    to keep you motivated during your workout sessions. Take the first step
+    towards a healthier, more active lifestyle!
+  </span>
+</p>
+{% else %}
+<h1 class="cascading stroke-text">
+  <span class="text-container container"
+    >Sign Up or Log In to enjoy the benefits!</span
+  >
+</h1>
+{% endif %} {% endblock %}

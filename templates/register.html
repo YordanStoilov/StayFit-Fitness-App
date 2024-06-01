@@ -1,0 +1,56 @@
+{% extends "layout.html" %} {% block main %}
+
+<h1 class="stroke-text cascading" style="padding-top: 1vh">
+  <span class="text-container">Register below:</span>
+</h1>
+
+<div id="error"></div>
+<form method="post" action="/register" style="margin-top: 10vh">
+  <div class="form-padding" id="email-validation">
+    <div class="label">
+      <label for="email">Email</label>
+    </div>
+    <input
+      title="Password must be at least 8 characters long and contain numbers, alphabetical characters or ['+', '-', '_', '.', '&'']!"
+      required
+      pattern="[a-zA-Z0-9+-_.&]+@[a-zA-Z0-9+-]+\.[a-z]{2,}"
+      class="form-control-sm"
+      type="email"
+      name="email"
+      placeholder="Email address"
+      id="email"
+    />
+  </div>
+  <div class="form-padding" id="username-validation">
+    <div class="label">
+      <label for="username">Username</label>
+    </div>
+    <input
+      title="Username must be at least 3 characters long and contain numbers, alphabetical characters or ['+', '-', '_', '.', '&'']!"
+      required
+      pattern="[a-zA-Z0-9+-_.&]{3,}"
+      class="form-control-sm"
+      type="text"
+      name="username"
+      placeholder="Enter username"
+      id="username"
+    />
+  </div>
+  <div class="form-padding" id="password-validation">
+    <div class="label">
+      <label for="password">Password</label>
+    </div>
+    <input
+      pattern="[a-zA-Z0-9+-_.&]{8,}"
+      required
+      class="form-control-sm"
+      type="password"
+      name="password"
+      placeholder="Enter password"
+      id="password"
+    />
+    <p class="input-hint">Password must be at least 8 character long.</p>
+  </div>
+  <button type="submit" id="submit" style="margin-top: 1vh">Register</button>
+</form>
+{% endblock %}

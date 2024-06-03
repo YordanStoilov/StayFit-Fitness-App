@@ -29,7 +29,33 @@
 <h3 class="cascading stroke-text">
   <span class="text-container">Here are your favourites: </span>
 </h3>
-
+<div>
+  <table class="table table-dark table-hover table-bordered">
+    <tr>
+      <th>Exercise name</th>
+      <th>Exercise Type</th>
+      <th>Exercise Difficulty</th>
+      <th>Equipment</th>
+      <th>Muscle Group</th>
+      <th>Instructions</th>
+    </tr>
+    {% for favourite in favourites %}
+    <tr>
+      <td>{{ favourite.exercise_name|capitalize }}</td>
+      <td>{{ favourite.exercise_type|capitalize }}</td>
+      <td>{{ favourite.exercise_difficulty|capitalize }}</td>
+      <td>{{ favourite.equipment|capitalize }}</td>
+      <td>{{ favourite.muscle_group|capitalize }}</td>
+      <td>
+        <details>
+          <summary>See more...</summary>
+          <p style="padding-top: 1vh">{{ favourite.instructions }}</p>
+        </details>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
 {% else %}
 <h3 class="cascading stroke-text">
   <span class="text-container">You don't have any favourites yet</span>

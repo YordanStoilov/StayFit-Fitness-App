@@ -1,7 +1,7 @@
 import os
 
 from cs50 import SQL
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 from functions import login_required, get_exercises, User, get_exercise_id, get_token, get_needed_data_from_json, search_for_playlist
@@ -101,7 +101,6 @@ def workouts():
             results_number = 10
 
         results = results[:results_number]
-
         results = get_exercise_id(results)
 
         return render_template("workout_results.html", results=results)
@@ -113,14 +112,22 @@ def workouts():
 @login_required
 def add_favourite():
     user_id = session["user_id"]
-
     if request.method == "POST":
-        if request.method == "POST":
-            exercise_id = request.form.get('exercise_id')
-            
-            
-            if not db.execute("SELECT * FROM favourites WHERE exercise_id = ?", exercise_id):
-                db.execute("INSERT INTO favourites (?, ?, ?, ?, ?, ?)", user_id, )
+        selected = request.form.getlist("favourite_exercises")
+        
+        for result in selected:
+            result = result.split("|")
+            equipment = result[0] 
+            instructions = result[1]
+            exercise_id = result[2]
+            exercise_name, exercise_type, muscle_group, difficulty = exercise_id.split("&")
+
+            if not db.execute("SELECT * FROM favourites WHERE user_id = ? AND exercise_id = ?", user_id, result[2]):
+                db.execute("INSERT INTO favourites (exercise_name, exercise_type, exercise_difficulty, muscle_group, exercise_id, equipment, instructions, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", 
+                           exercise_name, exercise_type, difficulty, muscle_group, exercise_id, equipment, instructions, user_id)
+                
+            return redirect("/profile")
+
 
 @app.route("/health_test", methods=["GET", "POST"])
 @login_required
@@ -168,14 +175,16 @@ def health_test():
 @app.route("/profile", methods=["POST", "GET"])
 @login_required
 def profile():
+    user_id = session["user_id"]
     try:
         user_data = db.execute("SELECT * FROM user_results WHERE user_id = ?", session["user_id"])[0]
-        user_name = db.execute("SELECT name FROM user_vitals WHERE user_id = ?", session["user_id"])[0]
+        name = db.execute("SELECT name FROM user_vitals WHERE user_id = ?", session["user_id"])[0]
 
     except(IndexError):
         return render_template("profile.html", user_data=[])
-
-    return render_template("profile.html", user_data=user_data, name=user_name["name"])
+    
+    favourites = db.execute("SELECT * FROM favourites WHERE user_id = ?", user_id)
+    return render_template("profile.html", user_data=user_data, name=name["name"], favourites=favourites)
 
 
 @app.route("/motivated", methods=["GET", "POST"])

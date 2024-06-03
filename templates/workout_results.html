@@ -1,35 +1,61 @@
 {% extends "layout.html" %} {% block main %}
-<table
-  class="table table-dark table-hover table-bordered"
-  style="margin-top: 5vh"
+<form
+  action="/add_favourite"
+  method="post"
+  name="favourite"
+  id="favourite-form"
 >
-  <tr>
-    <th>Exercise</th>
-    <th>Equipment needed</th>
-    <th>Instructions</th>
-    <th>Save to Favourites</th>
-  </tr>
-  {% for result in results %}
-  <tr>
-    <td>{{ result.name }}</td>
-    <td>{{ result.equipment }}</td>
-    <td>
-      <details>
-        <summary>See more...</summary>
-        <p style="padding-top: 1vh">{{ result.instructions }}</p>
-      </details>
-    </td>
-    <th>
-      <form
-        action="/add_favourite"
-        method="post"
-        name="favourite"
-        data-id="{{ result.exercise_id }}"
-      >
-        <button type="submit" id="favourite-button">❤️</button>
-      </form>
-    </th>
-    {% endfor %}
-  </tr>
-</table>
+  <table
+    class="table table-dark table-hover table-bordered"
+    style="margin-top: 5vh"
+  >
+    <tr>
+      <th>Exercise</th>
+      <th>Equipment needed</th>
+      <th>Instructions</th>
+      <th>Save to Favourites</th>
+    </tr>
+    {% for result in results %}
+    <tr>
+      <td>{{ result.name }}</td>
+      <td>{{ result.equipment }}</td>
+      <td>
+        <details>
+          <summary>See more...</summary>
+          <p style="padding-top: 1vh">{{ result.instructions }}</p>
+        </details>
+      </td>
+      <td>
+        <input
+          type="checkbox"
+          name="favourite_exercises"
+          id="{{ result.exercise_id }}"
+          value="{{ result.equipment }}|{{ result.instructions }}|{{ result.exercise_id }}"
+        />
+      </td>
+      {% endfor %}
+    </tr>
+  </table>
+  <div>
+    <button type="submit">Save to Favourites</button>
+  </div>
+</form>
+<script>
+  document
+    .getElementById("favourite-form")
+    .addEventListener("submit", function (event) {
+      const checkboxes = document.querySelectorAll(
+        'input[name="favourite_exercises"]'
+      );
+      const isChecked = Array.from(checkboxes).some(
+        (checkbox) => checkbox.checked
+      );
+
+      if (!isChecked) {
+        event.preventDefault();
+        alert("Please select at least one exercise to save to favourites.");
+      }
+    });
+</script>
+
 {% endblock %}

@@ -29,33 +29,61 @@
 <h3 class="cascading stroke-text">
   <span class="text-container">Here are your favourites: </span>
 </h3>
-<div>
-  <table class="table table-dark table-hover table-bordered">
-    <tr>
-      <th>Exercise name</th>
-      <th>Exercise Type</th>
-      <th>Exercise Difficulty</th>
-      <th>Equipment</th>
-      <th>Muscle Group</th>
-      <th>Instructions</th>
-    </tr>
-    {% for favourite in favourites %}
-    <tr>
-      <td>{{ favourite.exercise_name|capitalize }}</td>
-      <td>{{ favourite.exercise_type|capitalize }}</td>
-      <td>{{ favourite.exercise_difficulty|capitalize }}</td>
-      <td>{{ favourite.equipment|capitalize }}</td>
-      <td>{{ favourite.muscle_group|capitalize }}</td>
-      <td>
-        <details>
-          <summary>See more...</summary>
-          <p style="padding-top: 1vh">{{ favourite.instructions }}</p>
-        </details>
-      </td>
-    </tr>
-    {% endfor %}
-  </table>
-</div>
+<form action="/unfavourite" method="post" id="unfavourite_form">
+  <div>
+    <table class="table table-dark table-hover table-bordered">
+      <tr>
+        <th>Exercise name</th>
+        <th>Exercise Type</th>
+        <th>Exercise Difficulty</th>
+        <th>Equipment</th>
+        <th>Muscle Group</th>
+        <th>Instructions</th>
+        <th>Remove favourite</th>
+      </tr>
+      {% for favourite in favourites %}
+      <tr>
+        <td>{{ favourite.exercise_name|capitalize }}</td>
+        <td>{{ favourite.exercise_type|capitalize }}</td>
+        <td>{{ favourite.exercise_difficulty|capitalize }}</td>
+        <td>{{ favourite.equipment|capitalize }}</td>
+        <td>{{ favourite.muscle_group|capitalize }}</td>
+        <td>
+          <details>
+            <summary>See more...</summary>
+            <p style="padding-top: 1vh">{{ favourite.instructions }}</p>
+          </details>
+        </td>
+        <td>
+          <input
+            type="checkbox"
+            name="unfavourite_exercise"
+            value="{{ favourite.exercise_id }}"
+          />
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  <button type="submit">Remove favourite</button>
+</form>
+<script>
+  document
+    .getElementById("unfavourite_form")
+    .addEventListener("submit", function (event) {
+      const checkboxes = document.querySelectorAll(
+        'input[name="unfavourite_exercise"]'
+      );
+      const isChecked = Array.from(checkboxes).some(
+        (checkbox) => checkbox.checked
+      );
+
+      if (!isChecked) {
+        event.preventDefault();
+        alert("Please select at least one exercise to remove from favourites.");
+      }
+    });
+</script>
 {% else %}
 <h3 class="cascading stroke-text">
   <span class="text-container">You don't have any favourites yet</span>

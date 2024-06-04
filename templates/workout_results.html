@@ -28,7 +28,7 @@
       <td>
         <input
           type="checkbox"
-          name="favourite_exercises"
+          name="favourite_exercise"
           id="{{ result.exercise_id }}"
           value="{{ result.equipment }}|{{ result.instructions }}|{{ result.exercise_id }}"
         />
@@ -45,7 +45,7 @@
     .getElementById("favourite-form")
     .addEventListener("submit", function (event) {
       const checkboxes = document.querySelectorAll(
-        'input[name="favourite_exercises"]'
+        'input[name="favourite_exercise"]'
       );
       const isChecked = Array.from(checkboxes).some(
         (checkbox) => checkbox.checked

@@ -4,7 +4,7 @@ from cs50 import SQL
 from flask import Flask, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
-from functions import login_required, get_exercises, User, get_exercise_id, get_token, get_needed_data_from_json, search_for_playlist
+from functions import login_required, get_exercises, User, format_results, get_token, get_needed_data_from_json, search_for_playlist
 
 app = Flask(__name__)
 
@@ -48,17 +48,17 @@ def login():
         
         session["user_id"] = data["user_id"]
 
-        app.logger.debug(f"Session user_id set to: {session['user_id']}")
-
         return redirect("/")
     
     return render_template("index.html")
+
 
 @app.route("/logout", methods = ["GET", "POST"])
 @login_required
 def logout():
     session.clear()
     return redirect("/")
+
 
 @app.route("/register", methods = ["GET", "POST"])
 def register():
@@ -69,9 +69,6 @@ def register():
         username = request.form.get("username")
         password = request.form.get("password")
 
-        # if not email or not username or not password:
-        #     return render_template("warning.html", message="Please fill in the fields")
-
         if db.execute("SELECT * FROM users WHERE username = ?", username):
             return render_template("warning.html", message="Username already exists")
         
@@ -79,6 +76,7 @@ def register():
         return render_template("warning.html", message="Successfully registered!")
 
     return render_template("register.html")
+
 
 @app.route("/workouts", methods=["GET", "POST"])
 @login_required
@@ -101,7 +99,7 @@ def workouts():
             results_number = 10
 
         results = results[:results_number]
-        results = get_exercise_id(results)
+        results = format_results(results)
 
         return render_template("workout_results.html", results=results)
     
@@ -112,8 +110,9 @@ def workouts():
 @login_required
 def add_favourite():
     user_id = session["user_id"]
+
     if request.method == "POST":
-        selected = request.form.getlist("favourite_exercises")
+        selected = request.form.getlist("favourite_exercise")
         
         for result in selected:
             result = result.split("|")
@@ -122,11 +121,11 @@ def add_favourite():
             exercise_id = result[2]
             exercise_name, exercise_type, muscle_group, difficulty = exercise_id.split("&")
 
-            if not db.execute("SELECT * FROM favourites WHERE user_id = ? AND exercise_id = ?", user_id, result[2]):
+            if not db.execute("SELECT * FROM favourites WHERE user_id = ? AND exercise_id = ?", user_id, exercise_id):
                 db.execute("INSERT INTO favourites (exercise_name, exercise_type, exercise_difficulty, muscle_group, exercise_id, equipment, instructions, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", 
                            exercise_name, exercise_type, difficulty, muscle_group, exercise_id, equipment, instructions, user_id)
                 
-            return redirect("/profile")
+        return redirect("/profile")
 
 
 @app.route("/health_test", methods=["GET", "POST"])
@@ -172,6 +171,7 @@ def health_test():
 
     return render_template("health_test.html")
 
+
 @app.route("/profile", methods=["POST", "GET"])
 @login_required
 def profile():
@@ -196,5 +196,18 @@ def motivated():
     return render_template("motivated.html", results=results)
 
 
-if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+@app.route("/unfavourite", methods=["GET", "POST"])
+@login_required
+def unfavourite():
+    user_id = session["user_id"]
+
+    if request.method == "POST":
+        selected = request.form.getlist("unfavourite_exercise")
+        
+        for exercise_id in selected:
+            try:
+                db.execute("DELETE FROM favourites WHERE exercise_id = ? AND user_id = ?", exercise_id, user_id)
+
+            except: continue
+
+        return redirect("/profile")

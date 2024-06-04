@@ -106,10 +106,12 @@ def get_exercises(exercise=None, muscle=None, difficulty=None):
     else:
         return f"Error: {response.status_code, response.text}"
 
-def get_exercise_id(results: list):
+def format_results(results: list):
 
     for result in results:
         result["exercise_id"] = f'{result["name"]}&{result["type"]}&{result["muscle"]}&{result["difficulty"]}'
+        result["muscle"] = result["muscle"].replace("_", " ").capitalize()
+        result["equipment"] = result["equipment"].replace("_", " ").capitalize()
 
     return results
 
@@ -128,6 +130,7 @@ def get_token():
     data = {"grant_type": "client_credentials"}
     result = requests.post(url, headers=headers, data=data)
     json_result = json.loads(result.content)
+    print(json_result)
     token = json_result["access_token"]
     return token
 

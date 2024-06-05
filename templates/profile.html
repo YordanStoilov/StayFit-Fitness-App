@@ -1,11 +1,11 @@
 {% extends "layout.html" %} {% block main %} {% if user_data %}
 
 <h1 class="cascading stroke-text">
-  <span class="text-container">Hello, {{ name }} !</span>
+  <span class="text-container rounded-pill">Hello, {{ name }} !</span>
 </h1>
 
 <h3 class="cascading stroke-text">
-  <span class="text-container">
+  <span class="text-container rounded-pill">
     Your Body Mass Index (BMI) is {{ user_data.bmi }}.
     <br />
     Your blood pressure status is : {{ user_data.bps }}
@@ -20,18 +20,18 @@
 {% else %}
 
 <h1 class="cascading stroke-text">
-  <span class="text-container"
+  <span class="text-container rounded-pill"
     >You haven't provided data about yourself yet! head over to Health test to
     get your health results.</span
   >
 </h1>
 {% endif %} {% if favourites %}
 <h3 class="cascading stroke-text">
-  <span class="text-container">Here are your favourites: </span>
+  <span class="text-container rounded-pill">Here are your favourites: </span>
 </h3>
 <form action="/unfavourite" method="post" id="unfavourite_form">
   <div>
-    <table class="table table-dark table-hover table-bordered">
+    <table class="table table-dark table-hover table-bordered table-responsive">
       <tr>
         <th>Exercise name</th>
         <th>Exercise Type</th>
@@ -65,7 +65,13 @@
       {% endfor %}
     </table>
   </div>
-  <button type="submit">Remove favourite</button>
+  <button
+    class="btn btn-success rounded-pill"
+    type="submit"
+    style="margin-bottom: 20px"
+  >
+    Remove favourite
+  </button>
 </form>
 <script>
   document
@@ -86,6 +92,8 @@
 </script>
 {% else %}
 <h3 class="cascading stroke-text">
-  <span class="text-container">You don't have any favourites yet</span>
+  <span class="text-container rounded-pill"
+    >You don't have any favourites yet</span
+  >
 </h3>
 {% endif %} {% endblock %}

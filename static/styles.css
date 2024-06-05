@@ -19,7 +19,6 @@
     display: flex;
     align-items: left;
     justify-content: left;
-    border: 2px solid pink;
   }  
   
 @keyframes cascading {
@@ -56,6 +55,8 @@ h1 {
   padding: 1vw;
   border-radius: 10px;
   display: inline-block;
+  font-family: Arial, sans-serif;
+  font-weight: lighter;
 }
 
 .summary {
@@ -76,4 +77,26 @@ h1 {
   body {
     background-size: cover;
   }
+}
+
+.accordion-body {
+  background-color: rgba(141, 145, 141, 0.5);
+}
+
+.accordion-button {
+  background-color: rgb(92, 131, 116);
+  color: white;
+}
+.accordion-button:after {
+  background-color: rgb(165, 201, 202);
+}
+.accordion-button:not(.collapsed):after{
+  background-color: rgb(165, 201, 202)
+}
+.accordion-button:not(.collapsed) {
+  background-color: rgb(92, 131, 116);
+  color: white;
+}
+.accordion-item {
+  background-color: #e1f5fe;
 }

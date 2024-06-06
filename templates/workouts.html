@@ -12,7 +12,7 @@
     class="accordion accordion-dark bg-secondary text-container"
     id="accordionWorkouts"
   >
-    <form action="/workouts" method="post">
+    <form action="/workouts" method="post" id="workout_search_form">
       <div class="accordion-item accordion-item-dark">
         <h2 class="accordion-header">
           <button
@@ -26,7 +26,7 @@
             Type of Exercise
           </button>
         </h2>
-        <div id="collapseOne" class="accordion-collapse collapse">
+        <div id="collapseOne" class="accordion-collapse collapse show">
           <div class="accordion-body">
             <input type="radio" name="exercise" value="Cardio" id="cardio" />
             <label for="cardio">Cardio</label>
@@ -183,7 +183,7 @@
             Difficulty
           </button>
         </h2>
-        <div id="collapseThree" class="accordion-collapse collapse">
+        <div id="collapseThree" class="accordion-collapse collapse show">
           <div class="accordion-body">
             <input
               type="radio"
@@ -206,7 +206,7 @@
           </div>
         </div>
       </div>
-      <p style="padding-top: 5vh">Number of exercises:</p>
+      <p style="padding-top: 5vh">Number of exercises (default is 10):</p>
       <input
         class="rounded-pill"
         name="results_number"
@@ -218,5 +218,22 @@
     </form>
   </div>
 </div>
+<script>
+  document
+    .getElementById("workout_search_form")
+    .addEventListener("submit", function (event) {
+      const checkboxes = document.querySelectorAll(
+        'input[name="exercise"], input[name="difficulty"], input[name="muscle"]'
+      );
+      const isChecked = Array.from(checkboxes).some(
+        (checkbox) => checkbox.checked
+      );
+
+      if (!isChecked) {
+        event.preventDefault();
+        alert("Please select at least one criteria for search.");
+      }
+    });
+</script>
 
 {% endblock %}

@@ -100,3 +100,12 @@ h1 {
 .accordion-item {
   background-color: #e1f5fe;
 }
+
+.menu-hint {
+  font-style: italic;
+  color: rgb(181, 185, 181);
+}
+.row {
+  padding-bottom: 10px;
+  padding-right: 10px;
+}

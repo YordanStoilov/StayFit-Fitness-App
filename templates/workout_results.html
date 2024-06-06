@@ -1,47 +1,64 @@
 {% extends "layout.html" %} {% block main %}
-<form
-  action="/add_favourite"
-  method="post"
-  name="favourite"
-  id="favourite-form"
->
-  <table
-    class="table table-dark table-hover table-bordered table-responsive-md"
-    style="margin-top: 5vh"
+<div class="container">
+  <form
+    action="/add_favourite"
+    method="post"
+    name="favourite"
+    id="favourite-form"
   >
-    <tr>
-      <th>Exercise</th>
-      <th>Equipment needed</th>
-      <th>Instructions</th>
-      <th>Save to Favourites</th>
-    </tr>
-    {% for result in results %}
-    <tr>
-      <td>{{ result.name }}</td>
-      <td>{{ result.equipment }}</td>
-      <td>
-        <details>
-          <summary>See more...</summary>
-          <p style="padding-top: 1vh">{{ result.instructions }}</p>
-        </details>
-      </td>
-      <td>
-        <input
-          type="checkbox"
-          name="favourite_exercise"
-          id="{{ result.exercise_id }}"
-          value="{{ result.equipment }}|{{ result.instructions }}|{{ result.exercise_id }}"
-        />
-      </td>
+    <div class="row">
+      {% for result in results %}
+      <div class="col-12 col-md-6 col-lg-4">
+        <div
+          class="card mb-4"
+          style="background-color: rgb(92, 131, 116); padding-top: 10px"
+        >
+          <img
+            class="card-image card-img-top"
+            src="{{ result.image_url }}"
+            alt="Picture of exercise"
+            width="500"
+            height="auto"
+          />
+          <div class="card-body">
+            <h5 class="card-title">{{ result.name }}</h5>
+            <p class="card-text">
+              <details>
+                <summary>See more...</summary>
+                <p>{{ result.instructions }}</p>
+              </details>
+            </p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Equipment : {{ result.equipment }}</li>
+            <li class="list-group-item">Muscle Group: {{ result.muscle }}</li>
+            <li class="list-group-item">
+              Difficulty : {{ result.difficulty }}
+            </li>
+            <li class="list-group-item">Add Favourite:</li>
+            <li class="list-group-item">
+              <input
+                type="checkbox"
+                name="favourite_exercise"
+                id="{{ result.exercise_id }}"
+                value="{{ result.equipment }}|{{ result.instructions }}|{{ result.exercise_id }}"
+              />
+            </li>
+          </ul>
+        </div>
+      </div>
       {% endfor %}
-    </tr>
-  </table>
-  <div>
-    <button class="btn btn-success rounded-pill" type="submit">
+    </div>
+    <button
+      class="btn btn-success rounded-pill"
+      type="submit"
+      style="margin-bottom: 10px"
+    >
       Save to Favourites
     </button>
-  </div>
-</form>
+  </form>
+</div>
+
 <script>
   document
     .getElementById("favourite-form")
@@ -60,4 +77,11 @@
     });
 </script>
 
+<style>
+  @media (min-width: 992px) {
+    .card {
+      width: 30rem;
+    }
+  }
+</style>
 {% endblock %}

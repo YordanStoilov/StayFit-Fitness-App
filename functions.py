@@ -11,6 +11,9 @@ load_dotenv()
 client_id = os.getenv("CLIENT_ID")
 client_secret = os.getenv("CLIENT_SECRET")
 
+cloud_api_key = os.getenv("CLOUD_API_KEY")
+search_engine_id = os.getenv("SEARCH_ENGINE_ID")
+
 # Login required decorator:
 def login_required(f):
 
@@ -106,14 +109,19 @@ def get_exercises(exercise=None, muscle=None, difficulty=None):
     else:
         return f"Error: {response.status_code, response.text}"
 
+
+# Formatting and adding necessary key-value pairs to the dictionary
 def format_results(results: list):
 
     for result in results:
         result["exercise_id"] = f'{result["name"]}&{result["type"]}&{result["muscle"]}&{result["difficulty"]}'
         result["muscle"] = result["muscle"].replace("_", " ").capitalize()
         result["equipment"] = result["equipment"].replace("_", " ").capitalize()
+        result["difficulty"] = result["difficulty"].capitalize()
+        result["image_url"] = get_exercise_image(result["name"])
 
     return results
+
 
 # Getting API data from Spotify:
 def get_token():
@@ -169,3 +177,27 @@ def get_spotify_embed_url(url):
     left_side = url[:24]
     right_side = url[24:]
     return f"{left_side}/embed{right_side}"
+
+
+# Making an API call to Google to find images for each exercise 
+def get_exercise_image(query):
+    url = "https://www.googleapis.com/customsearch/v1"
+    params = {
+        "q": f"man {query}",
+        "key": cloud_api_key,
+        "cx": search_engine_id,
+        "searchType": "image",
+        "num": 1,
+        # "fileType": "gif"
+    }
+    response = requests.get(url, params=params)
+
+    try:
+        response.raise_for_status()
+    
+    except requests.exceptions.HTTPError:
+        return "/static/images/training-girl.jpeg"
+    
+    search_results = response.json()
+
+    return search_results["items"][0]["link"]

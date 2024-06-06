@@ -42,11 +42,13 @@ body {
 {
     padding-top: 1vh;
     color: white;
-    font-family: Arial, sans-serif;
+    font-family: Jura, sans-serif;
+    font-weight: 600;
 }
 
 h1 {
-  font-family: Arial, sans-serif;
+  font-family: Jura, sans-serif;
+  font-weight: bolder;
   color: black;
 }
 
@@ -55,8 +57,8 @@ h1 {
   padding: 1vw;
   border-radius: 10px;
   display: inline-block;
-  font-family: Arial, sans-serif;
-  font-weight: lighter;
+  font-family: Jura, sans-serif;
+  font-weight: 600;
 }
 
 .summary {
@@ -108,4 +110,17 @@ h1 {
 .row {
   padding-bottom: 10px;
   padding-right: 10px;
+}
+
+.dropdown-menu {
+  background-color: black;
+}
+
+.table {
+  font-family: Jura, sans-serif;
+  font-weight: 600;
+}
+nav {
+  font-family: Jura, sans-serif;
+  font-weight: 600;
 }

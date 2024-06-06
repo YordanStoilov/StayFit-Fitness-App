@@ -19,7 +19,9 @@
   </head>
   <body>
     <div class="container-fluid">
-      <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+      <nav
+        class="navbar navbar-expand-md navbar-dark bg-dark fixed-top mx-auto d-flex"
+      >
         <div class="btn-group dropend bg-dark" style="padding-left: 2vw">
           <button type="button" class="btn btn-dark">
             <a class="navbar-brand" href="/">StayFit</a>
@@ -48,7 +50,9 @@
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li>
-              <a class="dropdown-item" href="/logout">Log out</a>
+              <a class="dropdown-item" href="/logout">
+                <button class="btn btn-sm btn-danger">Log out</button>
+              </a>
             </li>
           </ul>
           {% else %}
@@ -73,7 +77,9 @@
             </li>
             <li><hr class="dropdown-divider disabled" /></li>
             <li>
-              <a class="dropdown-item disabled" href="/logout">Log out</a>
+              <a class="dropdown-item disabled" href="/logout">
+                <button class="btn btn-sm btn-secondary">Log out</button>
+              </a>
             </li>
           </ul>
         </div>
@@ -82,30 +88,53 @@
           <a class="navbar-brand" href="/register" style="padding-left: 1vw"
             >Register</a
           >
-          <form
-            class="form-control-md"
-            action="/login"
-            method="post"
-            style="padding-right: 1vw"
-          >
-            <input
-              class="rounded-pill"
-              type="text"
-              placeholder="Username"
-              name="username"
-              required
-            />
-            <input
-              class="rounded-pill"
-              type="password"
-              placeholder="Password"
-              name="password"
-              required
-            />
-            <button class="btn btn-sm btn-success rounded-pill" type="submit">
-              Log In
+          <div class="btn-group dropstart">
+            <button
+              class="btn btn-md btn-success dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Log in
             </button>
-          </form>
+            <ul class="dropdown-menu" style="padding-left: 15px">
+              <form
+                class="form-control-md"
+                action="/login"
+                method="post"
+                style="padding-right: 1vw"
+              >
+                <li>
+                  <input
+                    class="dropdown-item rounded-pill"
+                    type="text"
+                    placeholder="Username"
+                    name="username"
+                    required
+                  />
+                </li>
+                <li>
+                  <input
+                    class="dropdown-item rounded-pill"
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    required
+                  />
+                </li>
+                <li>
+                  <div class="dropdown-item">
+                    <button
+                      class="btn btn-sm btn-success rounded-pill"
+                      type="submit"
+                    >
+                      Log In
+                    </button>
+                  </div>
+                </li>
+              </form>
+            </ul>
+          </div>
         </div>
         {% endif %}
       </nav>
@@ -118,5 +147,10 @@
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+0m0D5V9i5+WBVvu5k5Gm2G9FOnJ0"
       crossorigin="anonymous"
     ></script>
+    <script>
+      const popover = new bootstrap.Popover(".popover", {
+        container: "body",
+      });
+    </script>
   </body>
 </html>

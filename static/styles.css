@@ -43,23 +43,21 @@ body {
 {
     padding-top: 1vh;
     color: white;
-    font-family: Jura, sans-serif;
-    font-weight: 600;
+    font-family: Montserrat, sans-serif;
 }
 
 h1 {
-  font-family: Jura, sans-serif;
-  font-weight: bold;
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
   color: black;
 }
 
 .text-container {
-  background-color: rgba(141, 145, 141, 0.5);
+  background-color: rgba(161, 150, 161, 0.2);
   padding: 1vw;
   border-radius: 10px;
   display: inline-block;
-  font-family: Jura, sans-serif;
-  font-weight: 600;
+  font-family: Montserrat, sans-serif;
 }
 
 .summary {
@@ -87,17 +85,17 @@ h1 {
 }
 
 .accordion-button {
-  background-color: rgb(92, 131, 116);
+  background-color: black;
   color: white;
 }
 .accordion-button:after {
-  background-color: rgb(165, 201, 202);
+  background-color: rgb(161, 150, 161);
 }
 .accordion-button:not(.collapsed):after{
-  background-color: rgb(165, 201, 202)
+  background-color: rgb(161, 150, 161);
 }
 .accordion-button:not(.collapsed) {
-  background-color: rgb(92, 131, 116);
+  background-color: black;
   color: white;
 }
 .accordion-item {
@@ -118,12 +116,10 @@ h1 {
 }
 
 .table {
-  font-family: Jura, sans-serif;
-  font-weight: 600;
+  font-family: Montserrat, sans-serif;
 }
 nav {
-  font-family: Jura, sans-serif;
-  font-weight: 600;
+  font-family: Montserrat, sans-serif;
 }
 .card-image {
   width: 300px;

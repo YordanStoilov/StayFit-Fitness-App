@@ -29,7 +29,7 @@
 <h3 class="cascading stroke-text">
   <span class="text-container rounded-pill">Here are your favourites: </span>
 </h3>
-<form action="/unfavourite" method="post" id="unfavourite_form">
+<!-- <form action="/unfavourite" method="post" id="unfavourite_form">
   <div>
     <table class="table table-dark table-hover table-bordered table-responsive">
       <tr>
@@ -71,6 +71,62 @@
     style="margin-bottom: 20px"
   >
     Remove favourite
+  </button>
+</form> -->
+<form
+  action="/unfavourite"
+  method="post"
+  name="unfavourite_exercise"
+  id="unfavourite_form"
+>
+  <div class="row">
+    {% for favourite in favourites %}
+    <div class="col-12 col-md-6 col-lg-4">
+      <div
+        class="card mb-4"
+        style="background-color: rgb(92, 131, 116); padding-top: 10px"
+      >
+        <img
+          class="card-image card-img-top"
+          src="{{ favourite.image_url }}"
+          alt="Picture of exercise"
+          width="500"
+          height="auto"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ favourite.exercise_name }}</h5>
+          <p class="card-text">
+            <details>
+              <summary>See more...</summary>
+              <p>{{ favourite.instructions }}</p>
+            </details>
+          </p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Equipment: {{ favourite.equipment }}</li>
+          <li class="list-group-item">Muscle Group: {{ favourite.muscle }}</li>
+          <li class="list-group-item">
+            Difficulty: {{ favourite.difficulty }}
+          </li>
+          <li class="list-group-item">Remove from Favourites:</li>
+          <li class="list-group-item">
+            <input
+              type="checkbox"
+              name="unfavourite_exercise"
+              value="{{ favourite.exercise_id }}"
+            />
+          </li>
+        </ul>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <button
+    class="btn btn-danger rounded-pill"
+    type="submit"
+    style="margin-bottom: 10px"
+  >
+    Remove from Favourites
   </button>
 </form>
 <script>

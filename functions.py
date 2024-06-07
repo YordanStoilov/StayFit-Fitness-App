@@ -196,7 +196,7 @@ def get_exercise_image(query):
         response.raise_for_status()
     
     except requests.exceptions.HTTPError:
-        return "/static/images/training-girl.jpeg"
+        return "https://qph.cf2.quoracdn.net/main-qimg-300ba7d9f401c5687b383d35c4296f4c-lq"
     
     search_results = response.json()
 

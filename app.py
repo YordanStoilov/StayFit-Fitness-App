@@ -85,6 +85,7 @@ def workouts():
         exercise = request.form.get("exercise")
         muscle = request.form.get("muscle")
         difficulty = request.form.get("difficulty")
+
         try:
             results_number = int(request.form.get("results_number"))
         
@@ -120,11 +121,12 @@ def add_favourite():
             equipment = result[0] 
             instructions = result[1]
             exercise_id = result[2]
+            image_url = result[3]
             exercise_name, exercise_type, muscle_group, difficulty = exercise_id.split("&")
 
             if not db.execute("SELECT * FROM favourites WHERE user_id = ? AND exercise_id = ?", user_id, exercise_id):
-                db.execute("INSERT INTO favourites (exercise_name, exercise_type, exercise_difficulty, muscle_group, exercise_id, equipment, instructions, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", 
-                           exercise_name, exercise_type, difficulty, muscle_group, exercise_id, equipment, instructions, user_id)
+                db.execute("INSERT INTO favourites (exercise_name, exercise_type, exercise_difficulty, muscle_group, exercise_id, equipment, instructions, user_id, image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+                           exercise_name, exercise_type, difficulty, muscle_group, exercise_id, equipment, instructions, user_id, image_url)
                 
         return redirect("/profile")
 
@@ -204,8 +206,10 @@ def unfavourite():
 
     if request.method == "POST":
         selected = request.form.getlist("unfavourite_exercise")
+
         
         for exercise_id in selected:
+
             try:
                 db.execute("DELETE FROM favourites WHERE exercise_id = ? AND user_id = ?", exercise_id, user_id)
 

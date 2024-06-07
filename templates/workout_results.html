@@ -30,18 +30,16 @@
             </p>
           </div>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">Equipment : {{ result.equipment }}</li>
+            <li class="list-group-item">Equipment: {{ result.equipment }}</li>
             <li class="list-group-item">Muscle Group: {{ result.muscle }}</li>
-            <li class="list-group-item">
-              Difficulty : {{ result.difficulty }}
-            </li>
+            <li class="list-group-item">Difficulty: {{ result.difficulty }}</li>
             <li class="list-group-item">Add Favourite:</li>
             <li class="list-group-item">
               <input
                 type="checkbox"
                 name="favourite_exercise"
                 id="{{ result.exercise_id }}"
-                value="{{ result.equipment }}|{{ result.instructions }}|{{ result.exercise_id }}"
+                value="{{ result.equipment }}|{{ result.instructions }}|{{ result.exercise_id }}|{{ result.image_url }}"
               />
             </li>
           </ul>

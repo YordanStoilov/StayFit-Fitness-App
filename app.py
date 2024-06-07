@@ -86,11 +86,7 @@ def workouts():
         muscle = request.form.get("muscle")
         difficulty = request.form.get("difficulty")
 
-        try:
-            results_number = int(request.form.get("results_number"))
-        
-        except(ValueError):
-            results_number = 10
+        results_number = int(request.form.get("results_number"))
 
         if not exercise and not muscle and not difficulty:
             return render_template("warning.html", message="You need to input at least one value!")

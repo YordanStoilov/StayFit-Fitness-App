@@ -132,7 +132,12 @@ nav {
   margin-right: auto;
 }
 .list-group-item {
-  background-color: rgb(165, 201, 202)
+  background-color: darkgrey
+}
+.card {
+  background-color: gray;
+  padding: 15px;
+  margin-top: 15px;
 }
 
 @media (min-width: 992px) {
@@ -147,3 +152,4 @@ nav {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+

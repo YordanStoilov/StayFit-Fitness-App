@@ -38,7 +38,11 @@ def login():
             return render_template("warning.html", message="Please fill in the forms!")
         
         user_data = db.execute("SELECT * FROM users WHERE username = ?", username)
-        data = user_data[0]
+        try:
+            data = user_data[0]
+        
+        except IndexError:
+            return render_template("warning.html", message="Incorrect username or password!")
 
         if not data:
             return render_template("warning.html", message="User does not exist!")

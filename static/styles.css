@@ -39,6 +39,20 @@ body {
   background-attachment: fixed;
 }
 
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-image: url("/static/images/training-girl.jpeg");
+  background-size: cover;
+  background-attachment: fixed;
+  filter: grayscale(40%);
+  z-index: -1;
+}
+
 .stroke-text
 {
     padding-top: 1vh;
@@ -53,7 +67,7 @@ h1 {
 }
 
 .text-container {
-  background-color: rgba(161, 150, 161, 0.2);
+  background-color: rgba(151, 150, 161, 0.25);
   padding: 1vw;
   border-radius: 10px;
   display: inline-block;
@@ -104,15 +118,11 @@ h1 {
 
 .menu-hint {
   font-style: italic;
-  color: rgb(181, 185, 181);
+  color: lightgray;
 }
 .row {
   padding-bottom: 10px;
   padding-right: 10px;
-}
-
-.dropdown-menu {
-  background-color: black;
 }
 
 .table {

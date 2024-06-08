@@ -54,8 +54,8 @@
             </a>
           </li>
         </ul>
-        {% else %}
       </div>
+      {% else %}
       <div class="container-fluid">
         <div class="dropdown-center">
           <button
@@ -69,6 +69,7 @@
           <ul class="dropdown-menu">
             <form
               class="form-control-md"
+              id="login_form"
               action="/login"
               method="post"
               style="padding-right: 1vw"
@@ -107,12 +108,10 @@
             </form>
             <li><hr class="dropdown-divider" /></li>
             <li style="padding-left: 2.4vw">
-              <a class="dropdown-item align-items-center"
-                ><a class="navbar-brand" href="/register">
-                  <button class="btn btn-warning" style="margin-left: 5px">
-                    Register
-                  </button></a
-                ></a
+              <a class="dropdown-item align-items-center" style="padding: 0">
+                <button class="btn btn-warning" href="/register">
+                  Register
+                </button></a
               >
             </li>
           </ul>
@@ -128,10 +127,5 @@
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+0m0D5V9i5+WBVvu5k5Gm2G9FOnJ0"
       crossorigin="anonymous"
     ></script>
-    <script>
-      const popover = new bootstrap.Popover(".popover", {
-        container: "body",
-      });
-    </script>
   </body>
 </html>

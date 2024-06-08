@@ -1,7 +1,14 @@
-{% extends "layout.html" %} {% block main %} {% if session["user_id"] %}
-<h1 class="cascading stroke-text">
+{% extends "layout.html" %} {% block main %} {% if not session["user_id"] %}
+<h2 class="cascading stroke-text">
+  <span class="text-container container rounded-pill"
+    >Sign Up or Log In to enjoy the benefits!</span
+  >
+</h2>
+{% else %}
+<h2 class="cascading stroke-text">
   <span class="text-container container rounded-pill">Welcome to StayFit!</span>
-</h1>
+</h2>
+{% endif %}
 <p
   class="cascading stroke-text rounded-pill"
   style="text-align: center; font-size: x-large"
@@ -15,10 +22,4 @@
     towards a healthier, more active lifestyle!
   </span>
 </p>
-{% else %}
-<h1 class="cascading stroke-text">
-  <span class="text-container container rounded-pill"
-    >Sign Up or Log In to enjoy the benefits!</span
-  >
-</h1>
-{% endif %} {% endblock %}
+{% endblock %}

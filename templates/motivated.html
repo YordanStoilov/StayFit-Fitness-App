@@ -1,10 +1,30 @@
-{% extends "layout.html" %} {% block main %}
+{% extends "layout.html" %} {% block main %} {% if not results %}
 <h1 class="cascading stroke-text">
   <span class="text-container rounded-pill"
-    >Here are some musical playlists to keep you motivated!</span
+    >Search for musical playlists to keep you motivated!</span
   >
 </h1>
-{% for result in results %}
+<div class="mb-3" style="margin-top: 20px">
+  <form action="/motivated" method="post" id="motivated_form">
+    <label style="margin-right: 10px" class="form-label menu-hint" for="keyword"
+      >Select genre or any other keyword</label
+    >
+    <input
+      class="form-control-sm rounded-pill"
+      type="text"
+      name="keyword"
+      id="keyword"
+      required
+    />
+    <button
+      class="btn btn-success btn-md rounded-pill"
+      style="margin-left: 5px"
+    >
+      Go!
+    </button>
+  </form>
+</div>
+{% else %} {% for result in results %}
 
 <iframe
   style="border-radius: 12px"
@@ -16,4 +36,4 @@
   allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
   loading="lazy"
 ></iframe>
-{% endfor %} {% endblock %}
+{% endfor %} {% endif %} {% endblock %}

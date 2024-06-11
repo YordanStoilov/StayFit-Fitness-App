@@ -183,7 +183,7 @@ def get_spotify_embed_url(url):
 def get_exercise_image(query):
     url = "https://www.googleapis.com/customsearch/v1"
     params = {
-        "q": f"man {query}",
+        "q": f"{query} exercise",
         "key": cloud_api_key,
         "cx": search_engine_id,
         "searchType": "image",

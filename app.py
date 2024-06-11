@@ -54,7 +54,7 @@ def login():
 
         return redirect("/")
     
-    return render_template("index.html")
+    return render_template("login.html")
 
 
 @app.route("/logout", methods = ["GET", "POST"])
@@ -80,6 +80,7 @@ def register():
         return render_template("warning.html", message="Successfully registered!")
 
     return render_template("register.html")
+
 
 
 @app.route("/workouts", methods=["GET", "POST"])
@@ -193,10 +194,15 @@ def profile():
 @app.route("/motivated", methods=["GET", "POST"])
 @login_required
 def motivated():
-    token = get_token()
-    results = get_needed_data_from_json(search_for_playlist(token, "workout", limit=10))
+    if request.method == "POST":
+        keyword = request.form.get("keyword")
 
-    return render_template("motivated.html", results=results)
+        token = get_token()
+        results = get_needed_data_from_json(search_for_playlist(token, keyword, limit=10))
+
+        return render_template("motivated.html", results=results)
+    
+    return render_template("motivated.html", results=[])
 
 
 @app.route("/unfavourite", methods=["GET", "POST"])

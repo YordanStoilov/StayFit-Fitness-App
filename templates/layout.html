@@ -56,63 +56,26 @@
         </ul>
       </div>
       {% else %}
-      <div class="container-fluid">
-        <div class="dropdown-center">
-          <button
-            class="btn btn-outline-secondary dropdown-toggle"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Get started!
-          </button>
-          <ul class="dropdown-menu">
-            <form
-              class="form-control-md"
-              id="login_form"
-              action="/login"
-              method="post"
-              style="padding-right: 1vw"
-            >
-              <li>
-                <a class="dropdown-item"
-                  ><input
-                    class="dropdown-item rounded-pill"
-                    type="text"
-                    placeholder="Username"
-                    name="username"
-                    required
-                /></a>
-              </li>
-              <li>
-                <a class="dropdown-item"
-                  ><input
-                    class="dropdown-item rounded-pill"
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    required
-                /></a>
-              </li>
-              <li>
-                <a class="dropdown-item" style="margin-left: 20px"
-                  ><button
-                    class="btn btn-sm btn-success rounded-pill align-items-center"
-                    type="submit"
-                  >
-                    <i>Log In</i>
-                  </button></a
-                >
-              </li>
-            </form>
-            <li><hr class="dropdown-divider" /></li>
-            <li style="padding-left: 32px">
-              <a class="dropdown-item align-items-center" style="padding: 0">
-                <a class="btn btn-warning" href="/register"> Register </a></a
-              >
-            </li>
-          </ul>
-        </div>
+      <div class="btn-group dropend bg-dark" style="padding-left: 2vw">
+        <button type="button" class="btn btn-dark">
+          <a class="navbar-brand" href="/">StayFit</a>
+        </button>
+        <button
+          type="button"
+          class="btn btn-dark dropdown-toggle dropdown-toggle-split"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <span class="visually-hidden">Toggle Dropend</span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark bg-dark">
+          <li>
+            <a class="dropdown-item" href="/login">Log In</a>
+          </li>
+          <li>
+            <a class="dropdown-item" href="/register">Register</a>
+          </li>
+        </ul>
       </div>
       {% endif %}
     </nav>

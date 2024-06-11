@@ -198,7 +198,9 @@ def motivated():
         keyword = request.form.get("keyword")
 
         token = get_token()
-        results = get_needed_data_from_json(search_for_playlist(token, keyword, limit=10))
+        try:
+            results = get_needed_data_from_json(search_for_playlist(token, keyword, limit=10))
+        except: return render_template("warning.html", message="An unexpected error occured, please try again later or change your query.")
 
         return render_template("motivated.html", results=results)
     

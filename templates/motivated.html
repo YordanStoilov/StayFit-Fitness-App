@@ -4,25 +4,32 @@
     >Search for musical playlists to keep you motivated!</span
   >
 </h1>
-<div class="mb-3" style="margin-top: 20px">
-  <form action="/motivated" method="post" id="motivated_form">
-    <label style="margin-right: 10px" class="form-label menu-hint" for="keyword"
-      >Select genre or any other keyword</label
-    >
-    <input
-      class="form-control-sm rounded-pill"
-      type="text"
-      name="keyword"
-      id="keyword"
-      required
-    />
-    <button
-      class="btn btn-success btn-md rounded-pill"
-      style="margin-left: 5px"
-    >
-      Go!
-    </button>
-  </form>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-3">
+      <form action="/motivated" method="post" id="motivated_form">
+        <label
+          style="margin-right: 10px"
+          class="form-label menu-hint"
+          for="keyword"
+          >Select genre or any other keyword</label
+        >
+        <input
+          class="form-control-sm rounded-pill"
+          type="text"
+          name="keyword"
+          id="keyword"
+          required
+        />
+        <button
+          class="btn btn-success btn-md rounded-pill"
+          style="margin-left: 5px"
+        >
+          Go!
+        </button>
+      </form>
+    </div>
+  </div>
 </div>
 {% else %} {% for result in results %}
 

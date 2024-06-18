@@ -64,8 +64,6 @@ def logout():
 
 @app.route("/register", methods = ["GET", "POST"])
 def register():
-    session.clear()
-    
     if request.method == "POST":
         email = request.form.get("email")
         username = request.form.get("username")
@@ -77,7 +75,7 @@ def register():
         if db.execute("SELECT * FROM users WHERE username = ?", username):
             return render_template("warning.html", message="Username already exists")
         
-        db.execute("INSERT INTO users (username, email, password_hash) VALUES (?, ?, ?)", username, email, generate_password_hash(password))
+        db.execute("INSERT INTO users (username, email, password_hash, user_id) VALUES (?, ?, ?, ?)", username, email, generate_password_hash(password), session.get("user_id"))
         return render_template("warning.html", message="Successfully registered!")
 
     return render_template("register.html")
@@ -184,15 +182,22 @@ def health_test():
 @login_required
 def profile():
     user_id = session["user_id"]
+
     try:
-        user_data = db.execute("SELECT * FROM user_results WHERE user_id = ?", session["user_id"])[0]
-        name = db.execute("SELECT name FROM user_vitals WHERE user_id = ?", session["user_id"])[0]
+        name = db.execute("SELECT name FROM user_vitals WHERE user_id = ?", user_id)[0]
+        name = name["name"]
 
     except(IndexError):
-        return render_template("profile.html", user_data=[])
+        name = db.execute("SELECT username FROM users WHERE user_id=?", user_id)
+
+    try:
+        user_data = db.execute("SELECT * FROM user_results WHERE user_id = ?", user_id)[0]
+
+    except (IndexError):
+        user_data = []
     
     favourites = db.execute("SELECT * FROM favourites WHERE user_id = ?", user_id)
-    return render_template("profile.html", user_data=user_data, name=name["name"], favourites=favourites)
+    return render_template("profile.html", user_data=user_data, name=name, favourites=favourites)
 
 
 @app.route("/motivated", methods=["GET", "POST"])

@@ -1,5 +1,3 @@
-import os
-
 from cs50 import SQL
 from flask import Flask, redirect, render_template, request, session
 from flask_session import Session
@@ -35,7 +33,7 @@ def login():
         password = request.form.get("password")
 
         if not username or not password:
-            return render_template("warning.html", message="Please fill in the forms!")
+            return render_template("warning.html", message="Please fill in all the fields and try again!")
         
         user_data = db.execute("SELECT * FROM users WHERE username = ?", username)
         try:
@@ -72,6 +70,9 @@ def register():
         email = request.form.get("email")
         username = request.form.get("username")
         password = request.form.get("password")
+
+        if not email or not username or not password:
+            return render_template("warning.html", message="Please fill in all the fields and try again!")
 
         if db.execute("SELECT * FROM users WHERE username = ?", username):
             return render_template("warning.html", message="Username already exists")
@@ -116,6 +117,9 @@ def add_favourite():
 
     if request.method == "POST":
         selected = request.form.getlist("favourite_exercise")
+
+        if not selected:
+            return render_template("warning.html", message="Something went wrong. Please try again.")
         
         for result in selected:
             result = result.split("|")
@@ -196,6 +200,8 @@ def profile():
 def motivated():
     if request.method == "POST":
         keyword = request.form.get("keyword")
+        if not keyword:
+            keyword = "workout"
 
         token = get_token()
         try:
@@ -215,9 +221,10 @@ def unfavourite():
     if request.method == "POST":
         selected = request.form.getlist("unfavourite_exercise")
 
+        if not selected:
+            return render_template("warning.html", message="Something went wrong. Please try again.")
         
         for exercise_id in selected:
-
             try:
                 db.execute("DELETE FROM favourites WHERE exercise_id = ? AND user_id = ?", exercise_id, user_id)
 

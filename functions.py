@@ -14,6 +14,8 @@ client_secret = os.getenv("CLIENT_SECRET")
 cloud_api_key = os.getenv("CLOUD_API_KEY")
 search_engine_id = os.getenv("SEARCH_ENGINE_ID")
 
+x_api_key = os.getenv("X_API_KEY")
+
 # Login required decorator:
 def login_required(f):
 
@@ -103,7 +105,7 @@ def get_exercises(exercise=None, muscle=None, difficulty=None):
                 api_url += f"&{key}={value}"
 
 
-    response = requests.get(api_url, headers={'X-Api-Key': '+6tQp0+ZJwDYePUcZsXFgQ==hrcw2cmc1M6VPrPh'})
+    response = requests.get(api_url, headers={'X-Api-Key': x_api_key})
     if response.status_code == requests.codes.ok:
         return json.loads(response.text)
     else:
@@ -118,7 +120,7 @@ def format_results(results: list):
         result["muscle"] = result["muscle"].replace("_", " ").capitalize()
         result["equipment"] = result["equipment"].replace("_", " ").capitalize()
         result["difficulty"] = result["difficulty"].capitalize()
-        result["image_url"] = get_exercise_image(result["name"])
+        result["image_url"] = get_image(result["name"], keyword="exercise")
 
     return results
 
@@ -138,7 +140,6 @@ def get_token():
     data = {"grant_type": "client_credentials"}
     result = requests.post(url, headers=headers, data=data)
     json_result = json.loads(result.content)
-    print(json_result)
     token = json_result["access_token"]
     return token
 
@@ -180,15 +181,14 @@ def get_spotify_embed_url(url):
 
 
 # Making an API call to Google to find images for each exercise 
-def get_exercise_image(query):
+def get_image(query, keyword=None):
     url = "https://www.googleapis.com/customsearch/v1"
     params = {
-        "q": f"{query} exercise",
+        "q": f"{query} {keyword}",
         "key": cloud_api_key,
         "cx": search_engine_id,
         "searchType": "image",
         "num": 1,
-        # "fileType": "gif"
     }
     response = requests.get(url, params=params)
 
@@ -201,3 +201,19 @@ def get_exercise_image(query):
     search_results = response.json()
 
     return search_results["items"][0]["link"]
+
+
+def get_recipes(query):
+    api_url = f'https://api.api-ninjas.com/v1/recipe?query={query}'
+    response = requests.get(api_url, headers={'X-Api-Key': x_api_key})
+    if response.status_code == requests.codes.ok:
+       result =  json.loads(response.content)
+       for recipe in result:
+        #    recipe["image_url"] = get_image(recipe["title"], keyword="food")
+            recipe["image_url"] = "https://qph.cf2.quoracdn.net/main-qimg-300ba7d9f401c5687b383d35c4296f4c-lq"
+            recipe["recipe_id"] = f'{recipe["title"]}&{recipe["ingredients"]}'
+
+       return result
+
+    else:
+        return None

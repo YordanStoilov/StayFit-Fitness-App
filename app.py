@@ -2,7 +2,7 @@ from cs50 import SQL
 from flask import Flask, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
-from functions import login_required, get_exercises, User, format_results, get_token, get_needed_data_from_json, search_for_playlist
+from functions import login_required, get_exercises, User, format_results, get_token, get_needed_data_from_json, search_for_playlist, get_recipes
 
 app = Flask(__name__)
 
@@ -236,3 +236,20 @@ def unfavourite():
             except: continue
 
         return redirect("/profile")
+
+@login_required
+@app.route("/recipes", methods=["GET", "POST"])
+def recipes():
+    if request.method == "POST":
+        user_id = session["user_id"]
+        query = request.form.get("query")
+        results = get_recipes(query)
+
+        return render_template("recipes.html", results=results)
+    
+    return render_template("recipes.html")
+
+@login_required
+@app.route("/favourite_recipe", methods = ["GET", "POST"])
+def favourite_recipe():
+    favourite_recipes = selected = request.form.getlist("favourite_recipe")

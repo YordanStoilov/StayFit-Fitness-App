@@ -209,9 +209,10 @@ def get_recipes(query):
     if response.status_code == requests.codes.ok:
        result =  json.loads(response.content)
        for recipe in result:
-        #    recipe["image_url"] = get_image(recipe["title"], keyword="food")
-            recipe["image_url"] = "https://qph.cf2.quoracdn.net/main-qimg-300ba7d9f401c5687b383d35c4296f4c-lq"
+            recipe["image_url"] = get_image(recipe["title"], keyword="food")
+            # recipe["image_url"] = "https://qph.cf2.quoracdn.net/main-qimg-300ba7d9f401c5687b383d35c4296f4c-lq"
             recipe["recipe_id"] = f'{recipe["title"]}&{recipe["ingredients"]}'
+            recipe["ingredients"] = recipe["ingredients"].split("|")
 
        return result
 

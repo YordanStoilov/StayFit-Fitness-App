@@ -37,9 +37,13 @@
           <p class="card-text">{{ result.servings }}</p>
           <details style="margin-bottom: 10px">
             <summary>Ingredients</summary>
-            <p class="card-text">
-              {{ result.ingredients | replace('|', ', ') }}
-            </p>
+            <div class="card-text">
+              <ul class="list-group list-group-flush">
+                {% for ingredient in result.ingredients %}
+                <li class="list-group-item">{{ ingredient }}</li>
+                {% endfor %}
+              </ul>
+            </div>
           </details>
           <details style="margin-bottom: 10px">
             <summary>Preparation</summary>

@@ -245,7 +245,7 @@ def recipes():
         query = request.form.get("query")
         results = get_recipes(query)
 
-        return render_template("recipes.html", results=results)
+        return render_template("recipes.html", results=results[:3])
     
     return render_template("recipes.html")
 
